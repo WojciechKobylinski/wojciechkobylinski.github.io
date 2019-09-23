@@ -14,12 +14,28 @@
       function CountButton(props) {
 	  const isChosen = (parseInt(props.choice) == props.obj);
 	  if (isChosen)
-	      return (<button onClick={props.onClick}> <b>{props.choice}</b> </button>);
+	      return (<button onClick={props.onClick}> <b>[{props.choice}]</b> </button>);
 	  else
 	      return (<button onClick={props.onClick}> {props.choice} </button>);
       }
-	  
-      
+      function SwordButton(props) {
+	  const SWORD_SYMBOL = 3;
+	  const isChosen = (SWORD_SYMBOL == props.obj);
+	  if (isChosen)
+	      return (<button onClick={props.onClick}> <b>[&#9876;]</b> </button>);
+	  else
+	      return (<button onClick={props.onClick}> &#9876; </button>);
+
+      }
+      function HammerButton(props) {
+	  const HAMMER_SYMBOL = 4;
+	  const isChosen = (HAMMER_SYMBOL == props.obj);
+	  if (isChosen)
+	      return (<button onClick={props.onClick}> <b>[&#128296;]</b> </button>);
+	  else
+	      return (<button onClick={props.onClick}> &#128296; </button>);
+      }
+
       class WhuCalc extends React.Component {
 	  constructor(props) {
 	      super(props);
@@ -67,8 +83,8 @@
 
 		      <p>
 		      <label>symbol</label>
-		      <CountButton onClick={() => this.changeAttackSymbol(3)} choice="3" obj={this.state.attack.symbol} />
-		      <CountButton onClick={() => this.changeAttackSymbol(4)} choice="4" obj={this.state.attack.symbol} />
+		      <SwordButton onClick={() => this.changeAttackSymbol(3)} choice="3" obj={this.state.attack.symbol} />
+		      <HammerButton onClick={() => this.changeAttackSymbol(4)} choice="4" obj={this.state.attack.symbol} />
 		      </p>
 		      
 		      <p>
@@ -90,8 +106,8 @@
 
 		      <p>
 		      <label>symbol</label>
-		      <CountButton onClick={() => this.changeDefenseSymbol(3)} choice="3" obj={this.state.defense.symbol} />
-		      <CountButton onClick={() => this.changeDefenseSymbol(4)} choice="4" obj={this.state.defense.symbol} />
+		      <SwordButton onClick={() => this.changeDefenseSymbol(3)} choice="3" obj={this.state.defense.symbol} />
+		      <HammerButton onClick={() => this.changeDefenseSymbol(4)} choice="4" obj={this.state.defense.symbol} />
 		      </p>
 		      
 		      <p>
