@@ -1,0 +1,117 @@
+<html lang="en">
+  <meta charSet="utf-8"/>
+  <body>
+
+    <div id="root"></div>
+    
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js" crossorigin></script>
+    
+    <script type="text/javascript" src="whu.js"></script>
+    <script type="text/babel">
+      function CountButton(props) {
+	  const isChosen = (parseInt(props.choice) == props.obj);
+	  if (isChosen)
+	      return (<button onClick={props.onClick}> <b>{props.choice}</b> </button>);
+	  else
+	      return (<button onClick={props.onClick}> {props.choice} </button>);
+      }
+	  
+      
+      class WhuCalc extends React.Component {
+	  constructor(props) {
+	      super(props);
+	      this.state = {
+		  attack: {
+		      count: 1,
+		      symbol: 3,
+		      friends: 0,
+		  },
+		  defense: {
+		      count: 1,
+		      symbol: 3,
+		      friends: 0,
+		  },
+	      };
+	  }
+
+	  setNewStateWithChange(changeFun) {
+	      const newState = JSON.parse(JSON.stringify(this.state));
+	      changeFun(newState);
+	      this.setState(newState);
+	  }
+	  
+	  changeAttackCount(val) {this.setNewStateWithChange((state) => state.attack.count = val);}
+	  changeAttackSymbol(val) {this.setNewStateWithChange((state) => state.attack.symbol = val);}
+	  changeAttackFriends(val) {this.setNewStateWithChange((state) => state.attack.friends = val);}
+	  changeDefenseCount(val) {this.setNewStateWithChange((state) => state.defense.count = val);}
+	  changeDefenseSymbol(val) {this.setNewStateWithChange((state) => state.defense.symbol = val);}
+	  changeDefenseFriends(val) {this.setNewStateWithChange((state) => state.defense.friends = val);}
+	  
+	  render() {
+	      const prob = fight(this.state.attack, this.state.defense);
+	      
+	      return (
+		      <div>
+		      <h2> ATTACK </h2>
+		      <p>
+		      <label>dice</label>
+		      <CountButton onClick={() => this.changeAttackCount(1)} choice="1" obj={this.state.attack.count} />
+		      <CountButton onClick={() => this.changeAttackCount(2)} choice="2" obj={this.state.attack.count} />
+		      <CountButton onClick={() => this.changeAttackCount(3)} choice="3" obj={this.state.attack.count} />
+		      <CountButton onClick={() => this.changeAttackCount(4)} choice="4" obj={this.state.attack.count} />
+		      <CountButton onClick={() => this.changeAttackCount(5)} choice="5" obj={this.state.attack.count} />
+		      </p>
+
+		      <p>
+		      <label>symbol</label>
+		      <CountButton onClick={() => this.changeAttackSymbol(3)} choice="3" obj={this.state.attack.symbol} />
+		      <CountButton onClick={() => this.changeAttackSymbol(4)} choice="4" obj={this.state.attack.symbol} />
+		      </p>
+		      
+		      <p>
+		      <label>friends</label>
+		      <CountButton onClick={() => this.changeAttackFriends(0)} choice="0" obj={this.state.attack.friends} />
+		      <CountButton onClick={() => this.changeAttackFriends(1)} choice="1" obj={this.state.attack.friends} />
+		      <CountButton onClick={() => this.changeAttackFriends(2)} choice="2" obj={this.state.attack.friends} />
+		      </p>
+		      
+		      <h2> DEFENSE </h2>
+		      <p>
+		      <label>dice</label>
+		      <CountButton onClick={() => this.changeDefenseCount(1)} choice="1" obj={this.state.defense.count} />
+		      <CountButton onClick={() => this.changeDefenseCount(2)} choice="2" obj={this.state.defense.count} />
+		      <CountButton onClick={() => this.changeDefenseCount(3)} choice="3" obj={this.state.defense.count} />
+		      <CountButton onClick={() => this.changeDefenseCount(4)} choice="4" obj={this.state.defense.count} />
+		      <CountButton onClick={() => this.changeDefenseCount(5)} choice="5" obj={this.state.defense.count} />
+		      </p>
+
+		      <p>
+		      <label>symbol</label>
+		      <CountButton onClick={() => this.changeDefenseSymbol(3)} choice="3" obj={this.state.defense.symbol} />
+		      <CountButton onClick={() => this.changeDefenseSymbol(4)} choice="4" obj={this.state.defense.symbol} />
+		      </p>
+		      
+		      <p>
+		      <label>friends</label>
+		      <CountButton onClick={() => this.changeDefenseFriends(0)} choice="0" obj={this.state.defense.friends} />
+		      <CountButton onClick={() => this.changeDefenseFriends(1)} choice="1" obj={this.state.defense.friends} />
+		      <CountButton onClick={() => this.changeDefenseFriends(2)} choice="2" obj={this.state.defense.friends} />
+		      </p>
+		      
+		      <div>STAN  </div>
+		      <div>ATAK: {this.state.attack.count} SYMBOL: {this.state.attack.symbol} FRIENDS: {this.state.attack.friends}</div>
+		      <div>DEFENSE: {this.state.defense.count} SYMBOL: {this.state.defense.symbol} FRIENDS: {this.state.defense.friends}</div>
+		      <h2>PROBABILITY: {(prob * 100).toFixed(2)}% </h2>
+		      </div>);
+	  }
+}
+
+      ReactDOM.render(<WhuCalc />, document.getElementById('root'));
+    </script>
+
+
+  </body>
+</html>
