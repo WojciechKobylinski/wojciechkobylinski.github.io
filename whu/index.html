@@ -61,10 +61,22 @@
 	  
 	  changeAttackCount(val) {this.setNewStateWithChange((state) => state.attack.count = val);}
 	  changeAttackSymbol(val) {this.setNewStateWithChange((state) => state.attack.symbol = val);}
-	  changeAttackFriends(val) {this.setNewStateWithChange((state) => state.attack.friends = val);}
+	  changeAttackFriends(val) {
+	      this.setNewStateWithChange((state) => {
+		  state.attack.friends = val;
+		  if (val !== 0) {
+		      state.defense.friends = 0;
+		  }});
+	  }
 	  changeDefenseCount(val) {this.setNewStateWithChange((state) => state.defense.count = val);}
 	  changeDefenseSymbol(val) {this.setNewStateWithChange((state) => state.defense.symbol = val);}
-	  changeDefenseFriends(val) {this.setNewStateWithChange((state) => state.defense.friends = val);}
+	  changeDefenseFriends(val) {
+	      this.setNewStateWithChange((state) => {
+		  state.defense.friends = val;
+		  if (val !== 0) {
+		      state.attack.friends = 0;
+		  }});
+	  }
 	  
 	  render() {
 	      const prob = fight(this.state.attack, this.state.defense);
@@ -88,7 +100,7 @@
 		      </p>
 		      
 		      <p>
-		      <label>friends</label>
+		      <label>support</label>
 		      <CountButton onClick={() => this.changeAttackFriends(0)} choice="0" obj={this.state.attack.friends} />
 		      <CountButton onClick={() => this.changeAttackFriends(1)} choice="1" obj={this.state.attack.friends} />
 		      <CountButton onClick={() => this.changeAttackFriends(2)} choice="2" obj={this.state.attack.friends} />
@@ -111,7 +123,7 @@
 		      </p>
 		      
 		      <p>
-		      <label>friends</label>
+		      <label>support</label>
 		      <CountButton onClick={() => this.changeDefenseFriends(0)} choice="0" obj={this.state.defense.friends} />
 		      <CountButton onClick={() => this.changeDefenseFriends(1)} choice="1" obj={this.state.defense.friends} />
 		      <CountButton onClick={() => this.changeDefenseFriends(2)} choice="2" obj={this.state.defense.friends} />
