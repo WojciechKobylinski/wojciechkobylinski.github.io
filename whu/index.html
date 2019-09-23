@@ -18,22 +18,12 @@
 	  else
 	      return (<button onClick={props.onClick}> {props.choice} </button>);
       }
-      function SwordButton(props) {
-	  const SWORD_SYMBOL = 3;
-	  const isChosen = (SWORD_SYMBOL == props.obj);
+      function SymbolButton(props) {
+	  const isChosen = (parseInt(props.choice) == props.obj);
 	  if (isChosen)
-	      return (<button onClick={props.onClick}> <b>[&#9876;]</b> </button>);
+	      return (<button onClick={props.onClick}> <b>[{props.symbol}]</b> </button>);
 	  else
-	      return (<button onClick={props.onClick}> &#9876; </button>);
-
-      }
-      function HammerButton(props) {
-	  const HAMMER_SYMBOL = 4;
-	  const isChosen = (HAMMER_SYMBOL == props.obj);
-	  if (isChosen)
-	      return (<button onClick={props.onClick}> <b>[&#128296;]</b> </button>);
-	  else
-	      return (<button onClick={props.onClick}> &#128296; </button>);
+	      return (<button onClick={props.onClick}> {props.symbol} </button>);
       }
 
       class WhuCalc extends React.Component {
@@ -95,8 +85,8 @@
 
 		      <p>
 		      <label>symbol</label>
-		      <SwordButton onClick={() => this.changeAttackSymbol(3)} choice="3" obj={this.state.attack.symbol} />
-		      <HammerButton onClick={() => this.changeAttackSymbol(4)} choice="4" obj={this.state.attack.symbol} />
+		      <SymbolButton onClick={() => this.changeAttackSymbol(3)} choice="3" symbol="&#9876;" obj={this.state.attack.symbol} />
+		      <SymbolButton onClick={() => this.changeAttackSymbol(4)} choice="4" symbol="&#128296;" obj={this.state.attack.symbol} />
 		      </p>
 		      
 		      <p>
@@ -118,8 +108,8 @@
 
 		      <p>
 		      <label>symbol</label>
-		      <SwordButton onClick={() => this.changeDefenseSymbol(3)} choice="3" obj={this.state.defense.symbol} />
-		      <HammerButton onClick={() => this.changeDefenseSymbol(4)} choice="4" obj={this.state.defense.symbol} />
+		      <SymbolButton onClick={() => this.changeDefenseSymbol(3)} choice="3" symbol="&#10550;" obj={this.state.defense.symbol} />
+		      <SymbolButton onClick={() => this.changeDefenseSymbol(4)} choice="4" symbol="&#128737;" obj={this.state.defense.symbol} />
 		      </p>
 		      
 		      <p>
